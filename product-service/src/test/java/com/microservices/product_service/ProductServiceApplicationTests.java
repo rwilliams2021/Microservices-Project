@@ -3,6 +3,7 @@ package com.microservices.product_service;
 import com.microservices.product_service.dto.ProductRequest;
 import com.microservices.product_service.repository.ProductRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -41,6 +42,11 @@ class ProductServiceApplicationTests {
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
+    }
+
+    @BeforeEach
+    void setUp() {
+        productRepository.deleteAll();
     }
 
     @Test
