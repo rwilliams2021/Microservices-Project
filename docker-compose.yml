@@ -14,6 +14,21 @@ services:
     networks:
       - microservices-network
 
+  # MySQL for Order Service
+  inventory-mysql:
+    image: mysql:8.0
+    container_name: inventory-service-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: inventory-service
+    ports:
+      - "3307:3306"
+    volumes:
+      - inventory-mysql-data:/var/lib/mysql
+    networks:
+      - microservices-network
+
   # MongoDB for Product Service
   product-mongodb:
     image: mongo:7.0
@@ -33,6 +48,7 @@ services:
 volumes:
   order-mysql-data:
   product-mongodb-data:
+  inventory-mysql-data:
 
 networks:
   microservices-network:
